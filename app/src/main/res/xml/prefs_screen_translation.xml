@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="screen_translation"
+    android:title="إعدادات الترجمة الفورية (LinguaKey)">
+
+    <PreferenceCategory
+        android:key="cat_live_in_place"
+        android:title="الترجمة التلقائية داخل نفس الحقل (IN-PLACE LIVE TRANSLATION)">
+
+        <SwitchPreference
+            android:key="pref_linguakey_live_auto_translate"
+            android:title="إظهار شريط معاينة الترجمة تلقائياً بعد التوقف"
+            android:summary="عند إيقافه (الافتراضي)، تتم الترجمة فقط عند الضغط على زر (🌐 ترجمة) مع بقاء النص الأصلي دون استبدال تلقائي"
+            android:defaultValue="false" />
+
+        <ListPreference
+            android:key="pref_linguakey_live_source_lang"
+            android:title="لغة الكتابة (المصدر)"
+            android:summary="اللغة التي تكتب بها (مثل العربية / اللهجة السورية)"
+            android:entries="@array/linguakey_lang_names"
+            android:entryValues="@array/linguakey_lang_codes"
+            android:defaultValue="ar" />
+
+        <ListPreference
+            android:key="pref_linguakey_live_target_lang"
+            android:title="لغة الترجمة (الهدف)"
+            android:summary="اللغة التي يتحول إليها النص تلقائياً (مثل الإنجليزية، الإسبانية، الكورية...)"
+            android:entries="@array/linguakey_lang_names"
+            android:entryValues="@array/linguakey_lang_codes"
+            android:defaultValue="en" />
+
+        <ListPreference
+            android:key="pref_linguakey_live_dialect_mode"
+            android:title="أسلوب الترجمة وفهم اللهجة"
+            android:summary="تحكم بنبرة الترجمة وفهم المصطلحات الشامية والسورية الطبيعية"
+            android:entries="@array/linguakey_dialect_names"
+            android:entryValues="@array/linguakey_dialect_values"
+            android:defaultValue="SYRIAN_NATURAL" />
+
+        <ListPreference
+            android:key="pref_linguakey_live_debounce_ms"
+            android:title="مهلة التوقف الذكي (Smart Debounce)"
+            android:summary="الانتظار بعد التوقف عن الكتابة قبل إرسال الجملة للترجمة لتقليل استهلاك API"
+            android:entries="@array/linguakey_debounce_names"
+            android:entryValues="@array/linguakey_debounce_values"
+            android:defaultValue="650" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="cat_backend_security"
+        android:title="حماية المفتاح والخادم الوسيط (OPTIONAL BACKEND PROXY)">
+
+        <SwitchPreference
+            android:key="pref_linguakey_use_backend_proxy"
+            android:title="استخدام خادم وسيط خاص (Backend Proxy)"
+            android:summary="إرسال طلبات الترجمة عبر Cloudflare Worker / Backend خاص بك لحماية مفتاح Gemini 100%"
+            android:defaultValue="false" />
+
+        <EditTextPreference
+            android:key="pref_linguakey_backend_proxy_url"
+            android:title="رابط الخادم الوسيط (Backend Proxy URL)"
+            android:summary="مثال: https://linguakey-proxy.yourname.workers.dev"
+            android:defaultValue="" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="cat_translate_ai"
+        android:title="إعدادات لوحة الترجمة الجانبية والمحرك">
+
+        <SwitchPreference
+            android:key="pref_utility_show_translate"
+            android:title="إظهار زر لوحة الترجمة في شريط الأدوات"
+            android:summary="إظهار أيقونة الترجمة الإضافية في شريط الأدوات"
+            android:defaultValue="true" />
+
+        <ListPreference
+            android:key="pref_translate_mode"
+            android:title="محرك لوحة الترجمة الإضافية"
+            android:summary="اختر المحرك الافتراضي للوحة الترجمة"
+            android:entries="@array/translate_mode_names"
+            android:entryValues="@array/translate_mode_values"
+            android:defaultValue="ai" />
+
+        <ListPreference
+            android:key="pref_translate_ai_provider"
+            android:title="مزود الذكاء الاصطناعي للترجمة"
+            android:summary="استخدام Gemini API كمحرك أساسي"
+            android:entries="@array/translate_ai_provider_names"
+            android:entryValues="@array/translate_ai_provider_values"
+            android:defaultValue="gemini" />
+
+        <EditTextPreference
+            android:key="pref_translate_custom_prompt"
+            android:title="تعليمات الترجمة المخصصة (Custom Prompt)"
+            android:summary="قالب التوجيه الإضافي عند استخدام لوحة الترجمة"
+            android:defaultValue="Translate the following text to [Language] naturally preserving Syrian/Levantine nuances and speaker tone. Output ONLY the translated text:\n\n[Text]" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="cat_translate_mlkit"
+        android:title="التخزين المحلي بدون إنترنت (OFFLINE ML KIT)">
+
+        <Preference
+            android:key="pref_translate_clear_models"
+            android:title="تفريغ نماذج الترجمة بدون إنترنت"
+            android:summary="حذف نماذج ML Kit المحمّلة محلياً لتوفير المساحة" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="screen_ai"
+    android:title="ربط محرك Gemini API (LinguaKey AI)">
+
+    <!-- Master Toggle -->
+    <SwitchPreference
+        android:key="pref_ai_enabled"
+        android:title="تفعيل مساعد الذكاء الاصطناعي"
+        android:summary="تفعيل خدمات Gemini API للترجمة الفورية وتحسين الجمل"
+        android:defaultValue="true" />
+
+    <!-- Provider Selector -->
+    <ListPreference
+        android:key="pref_ai_provider"
+        android:title="مزود الذكاء الاصطناعي الأساسي"
+        android:summary="Gemini Cloud هو المحرك الأساسي الموصى به"
+        android:entries="@array/ai_provider_names"
+        android:entryValues="@array/ai_provider_values"
+        android:defaultValue="gemini" />
+
+    <!-- Gemini Cloud Settings -->
+    <PreferenceCategory
+        android:key="cat_gemini"
+        android:title="إعدادات GOOGLE GEMINI API (مشفر بـ AES-256)">
+        <EditTextPreference
+            android:key="pref_gemini_key"
+            android:title="مفتاح Gemini API Key"
+            android:summary="أدخل مفتاحك من Google AI Studio (يُحفظ مشفراً داخل AndroidKeyStore)"
+            android:defaultValue="" />
+        <EditTextPreference
+            android:key="pref_gemini_model"
+            android:title="نموذج Gemini (Model)"
+            android:summary="النموذج الموصى به للسرعة الفائقة: gemini-2.5-flash"
+            android:defaultValue="gemini-2.5-flash" />
+    </PreferenceCategory>
+
+    <!-- System Prompt -->
+    <EditTextPreference
+        android:key="pref_ai_system_prompt"
+        android:title="التوجيه الأساسي للمساعد (System Prompt)"
+        android:summary="تعليمات مخصصة لمساعد LinguaKey الذكي"
+        android:defaultValue="You are LinguaKey AI, an intelligent multilingual keyboard assistant specializing in natural Syrian/Levantine Arabic, English, Spanish, Korean, and global languages." />
+
+    <!-- Local Ollama Settings -->
+    <PreferenceCategory
+        android:key="cat_ollama"
+        android:title="LOCAL OLLAMA">
+        <EditTextPreference
+            android:key="pref_ollama_url"
+            android:title="Host URL"
+            android:summary="Ollama API endpoint (e.g. http://localhost:11434)"
+            android:defaultValue="http://localhost:11434" />
+        <EditTextPreference
+            android:key="pref_ollama_model"
+            android:title="Model"
+            android:summary="Model name (e.g. qwen2.5-coder, llama3.1)"
+            android:defaultValue="qwen2.5-coder" />
+    </PreferenceCategory>
+
+    <!-- Custom OpenAI-Compatible API Settings -->
+    <PreferenceCategory
+        android:key="cat_custom"
+        android:title="CUSTOM API (OPENAI-COMPATIBLE)">
+        <EditTextPreference
+            android:key="pref_custom_url"
+            android:title="Base URL"
+            android:summary="API endpoint (e.g. https://api.openai.com/v1)"
+            android:defaultValue="https://api.openai.com/v1" />
+        <EditTextPreference
+            android:key="pref_custom_model"
+            android:title="Model"
+            android:summary="Model name (e.g. gpt-4o-mini, deepseek-chat)"
+            android:defaultValue="gpt-4o-mini" />
+        <EditTextPreference
+            android:key="pref_custom_headers"
+            android:title="HTTP Headers (JSON)"
+            android:summary="Custom headers for authentication and routing"
+            android:defaultValue="{&quot;Authorization&quot;:&quot;Bearer YOUR_KEY&quot;}" />
+    </PreferenceCategory>
+
+    <!-- Advanced -->
+    <PreferenceCategory
+        android:key="cat_advanced"
+        android:title="الاختبار والإعدادات المتقدمة">
+        <Preference
+            android:key="pref_ai_test_connection"
+            android:title="🔌 اختبار الاتصال بـ Gemini API الآن"
+            android:summary="إرسال طلب تجريبي للتحقق من صحة المفتاح واستجابة الشبكة" />
+        <ListPreference
+            android:key="pref_ai_temperature"
+            android:title="درجة الدقة والإبداع (Temperature)"
+            android:summary="درجة منخفضة = ترجمة دقيقة، درجة أعلى = صياغة إبداعية"
+            android:entries="@array/ai_temperature_names"
+            android:entryValues="@array/ai_temperature_values"
+            android:defaultValue="0.3" />
+        <ListPreference
+            android:key="pref_ai_max_tokens"
+            android:title="الحد الأقصى لطول الاستجابة"
+            android:summary="Maximum tokens in AI responses"
+            android:entries="@array/ai_max_tokens_names"
+            android:entryValues="@array/ai_max_tokens_values"
+            android:defaultValue="1024" />
+        <SwitchPreference
+            android:key="pref_ai_skip_params"
+            android:title="تجاوز المعاملات المتقدمة"
+            android:summary="عدم إرسال temperature و max_tokens"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+** Copyright 2026 LinguaKey Smart Keyboard (Gboard Edition v4.0)
+** Licensed under the Apache License, Version 2.0
+*/
+-->
+
+<com.linguakey.keyboard.latin.InputView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="?attr/inputViewStyle">
+    <LinearLayout
+        android:id="@+id/keyboard_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+
+        <!-- Clipboard Suggestion Bar (Hidden by default) -->
+        <FrameLayout
+            android:id="@+id/clipboard_suggestion_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="#00000000"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:id="@+id/clipboard_suggestion_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:clickable="true"
+                android:focusable="true" />
+        </FrameLayout>
+
+        <!-- LinguaKey v4.0 Ultra-Clean Top Strip (Borderless Live Source Strip + Tools Drawer) -->
+        <LinearLayout
+            android:id="@+id/linguakey_live_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
+            android:background="#1F1F1F"
+            android:paddingTop="3dp"
+            android:paddingBottom="2dp">
+
+            <!--
+              Top Strip Directly Above the Number Row:
+              [Left: Tools Icon ⚙]  [Center: Borderless Original Text Area]  [Right: Translate Toggle A文]
+            -->
+            <LinearLayout
+                android:id="@+id/lk_clean_header_strip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="38dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp">
+
+                <!-- Left: Tools / Settings Icon (Opens/Closes Collapsible Tools Drawer) -->
+                <ImageView
+                    android:id="@+id/lk_tools_menu_btn"
+                    android:layout_width="34dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/sym_keyboard_settings"
+                    android:scaleType="centerInside"
+                    android:padding="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="Open Tools Menu" />
+
+                <!--
+                  Center: Borderless Source Text Strip
+                  - Zero borders or frames (android:background="@null")
+                  - Completely invisible & empty when Translation is OFF (no "اكتب هنا" clutter)
+                  - Displays native source text directly on keyboard background when Translation is ON
+                  - Smart dynamic text sizing & smooth multi-line expansion for long text
+                -->
+                <EditText
+                    android:id="@+id/lk_source_buffer_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="32dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text=""
+                    android:hint=""
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#4D8AB4F8"
+                    android:textSize="13.5sp"
+                    android:lineSpacingExtra="1dp"
+                    android:gravity="center_vertical"
+                    android:textDirection="anyRtl"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:maxLines="3"
+                    android:scrollbars="vertical"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:importantForAutofill="no"
+                    android:visibility="invisible" />
+
+                <!-- Subtle in-flight translation spinner -->
+                <ProgressBar
+                    android:id="@+id/lk_live_progress"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginEnd="6dp"
+                    android:visibility="gone" />
+
+                <!-- Right: Translation Toggle Button (Gray when OFF, Vibrant Blue when ON) -->
+                <ImageView
+                    android:id="@+id/lk_translate_toggle_btn"
+                    android:layout_width="36dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_translate"
+                    android:scaleType="centerInside"
+                    android:padding="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="Toggle Live Translation" />
+            </LinearLayout>
+
+            <!-- Collapsible Tools & Language Drawer (Hidden by default; toggled via Left Gear Icon ⚙) -->
+            <LinearLayout
+                android:id="@+id/lk_tools_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="4dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <!-- Row 1 of Tools Drawer: Language Pair (AR ⇄ EN), Syrian Dialect Mode, Polish, Clear/Undo -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:scrollbars="none"
+                    android:layout_marginBottom="6dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/lk_source_lang_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="AR"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                        <TextView
+                            android:id="@+id/lk_swap_direction_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="⇄"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="2dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:contentDescription="Swap Translation Direction" />
+
+                        <TextView
+                            android:id="@+id/lk_target_lang_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="EN"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:layout_marginEnd="6dp"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                        <TextView
+                            android:id="@+id/lk_dialect_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="شامي طبيعي 🇸🇾"
+                            android:textSize="11sp"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:layout_marginEnd="6dp"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                        <TextView
+                            android:id="@+id/lk_polish_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="✨ تحسين الصياغة"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:layout_marginEnd="6dp"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                        <TextView
+                            android:id="@+id/lk_undo_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="↩ مسح"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:visibility="gone"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- Alternative Phrasings Strip inside Tools Drawer (Optional quick tap to switch phrasing) -->
+                <HorizontalScrollView
+                    android:id="@+id/lk_alternatives_scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:layout_marginBottom="6dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/lk_alternatives_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical" />
+                </HorizontalScrollView>
+
+                <!-- Row 2 of Tools Drawer: All Original Iris Utility Panels (Keys, Clipboard, AI Copilot, Emoji, GIF, Dual Translate, Settings) -->
+                <LinearLayout
+                    android:id="@+id/utility_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp">
+                    
+                    <ImageView
+                        android:id="@+id/tb_keys_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_keyboard"
+                        android:padding="7dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Show Keyboard Keys" />
+
+                    <ImageView
+                        android:id="@+id/tb_clipboard_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/sym_keyboard_paste"
+                        android:padding="7dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Open Clipboard Panel" />
+
+                    <ImageView
+                        android:id="@+id/tb_ai_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_ai_copilot"
+                        android:padding="7dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Open AI Copilot" />
+
+                    <ImageView
+                        android:id="@+id/tb_emoji_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/sym_keyboard_emoji"
+                        android:padding="7dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Open Emoji Panel" />
+
+                    <ImageView
+                        android:id="@+id/tb_gif_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_gif"
+                        android:padding="7dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Search GIFs" />
+
+                    <ImageView
+                        android:id="@+id/tb_translate_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_translate"
+                        android:padding="7dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Translate" />
+
+                    <ImageView
+                        android:id="@+id/tb_settings_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/sym_keyboard_settings"
+                        android:padding="7dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Keyboard Settings Screen" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        
+        <!-- Dedicated Full Clipboard View Panel Stub -->
+        <ViewStub
+            android:id="@+id/clipboard_panel_stub"
+            android:inflatedId="@+id/clipboard_panel"
+            android:layout="@layout/panel_clipboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Dynamic AI Copilot Overlay Panel Stub -->
+        <ViewStub
+            android:id="@+id/ai_panel_stub"
+            android:inflatedId="@+id/ai_panel"
+            android:layout="@layout/panel_ai_copilot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Dedicated Full Emoji View Panel Stub -->
+        <ViewStub
+            android:id="@+id/emoji_panel_stub"
+            android:inflatedId="@+id/emoji_panel"
+            android:layout="@layout/panel_emoji"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Dedicated GIF Search Panel Stub -->
+        <ViewStub
+            android:id="@+id/gif_panel_stub"
+            android:inflatedId="@+id/gif_panel"
+            android:layout="@layout/panel_gif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Dedicated Translation Panel Stub -->
+        <ViewStub
+            android:id="@+id/translate_panel_stub"
+            android:inflatedId="@+id/translate_panel"
+            android:layout="@layout/panel_translate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Convenience In-Keyboard AI Settings Panel Stub -->
+        <ViewStub
+            android:id="@+id/ai_settings_panel_stub"
+            android:inflatedId="@+id/ai_settings_panel"
+            android:layout="@layout/panel_ai_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Main Keyboard View -->
+        <com.linguakey.keyboard.keyboard.MainKeyboardView
+            android:id="@+id/keyboard_view"
+            android:layoutDirection="ltr"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</com.linguakey.keyboard.latin.InputView>

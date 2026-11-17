@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="soundpack_names">
+        <item>iOS (Apple Inc. - Sampled)</item>
+        <item>iOS Deep (Apple Inc. - Sampled)</item>
+    </string-array>
+    <string-array name="soundpack_values">
+        <item>default</item>
+        <item>default_deep</item>
+    </string-array>
+
+    <string-array name="ai_provider_names">
+        <item>Gemini API (Google Cloud - المحرك الأساسي)</item>
+        <item>Ollama (Local)</item>
+        <item>Custom API (OpenAI / DeepSeek / OpenRouter)</item>
+    </string-array>
+    <string-array name="ai_provider_values">
+        <item>gemini</item>
+        <item>ollama</item>
+        <item>custom</item>
+    </string-array>
+
+    <string-array name="linguakey_lang_names">
+        <item>العربية (سوري / فصحى) 🇸🇾</item>
+        <item>English (الإنجليزية) 🇺🇸</item>
+        <item>Español (الإسبانية) 🇪🇸</item>
+        <item>한국어 (الكورية) 🇰🇷</item>
+        <item>Türkçe (التركية) 🇹🇷</item>
+        <item>Français (الفرنسية) 🇫🇷</item>
+        <item>Deutsch (الألمانية) 🇩🇪</item>
+        <item>Русский (الروسية) 🇷🇺</item>
+        <item>中文 (الصينية) 🇨🇳</item>
+        <item>日本語 (اليابانية) 🇯🇵</item>
+        <item>Italiano (الإيطالية) 🇮🇹</item>
+        <item>Português (البرتغالية) 🇧🇷</item>
+    </string-array>
+    <string-array name="linguakey_lang_codes">
+        <item>ar</item>
+        <item>en</item>
+        <item>es</item>
+        <item>ko</item>
+        <item>tr</item>
+        <item>fr</item>
+        <item>de</item>
+        <item>ru</item>
+        <item>zh</item>
+        <item>ja</item>
+        <item>it</item>
+        <item>pt</item>
+    </string-array>
+
+    <string-array name="linguakey_dialect_names">
+        <item>طبيعي ودقيق - يدعم اللهجة السورية والشامية 🇸🇾</item>
+        <item>رسمي واحترافي للأعمال 💼</item>
+        <item>ودّي وشبابي للدردشة (WhatsApp / HelloTalk) 💬</item>
+    </string-array>
+    <string-array name="linguakey_dialect_values">
+        <item>SYRIAN_NATURAL</item>
+        <item>FORMAL_PRO</item>
+        <item>CASUAL_FRIENDLY</item>
+    </string-array>
+
+    <string-array name="linguakey_debounce_names">
+        <item>سريع جداً (400ms)</item>
+        <item>متوازن ومثالي (650ms - موصى به)</item>
+        <item>موفّر للطلبات (900ms)</item>
+        <item>هادئ للفقرات الطويلة (1300ms)</item>
+    </string-array>
+    <string-array name="linguakey_debounce_values">
+        <item>400</item>
+        <item>650</item>
+        <item>900</item>
+        <item>1300</item>
+    </string-array>
+
+    <string-array name="ai_temperature_names">
+        <item>Precise (0.0)</item>
+        <item>Focused (0.3)</item>
+        <item>Balanced (0.7)</item>
+        <item>Creative (1.0)</item>
+        <item>Wild (1.5)</item>
+    </string-array>
+    <string-array name="ai_temperature_values">
+        <item>0.0</item>
+        <item>0.3</item>
+        <item>0.7</item>
+        <item>1.0</item>
+        <item>1.5</item>
+    </string-array>
+
+    <string-array name="ai_max_tokens_names">
+        <item>Short (256 tokens)</item>
+        <item>Medium (512 tokens)</item>
+        <item>Standard (1024 tokens)</item>
+        <item>Long (2048 tokens)</item>
+        <item>Extended (4096 tokens)</item>
+    </string-array>
+    <string-array name="ai_max_tokens_values">
+        <item>256</item>
+        <item>512</item>
+        <item>1024</item>
+        <item>2048</item>
+        <item>4096</item>
+    </string-array>
+    <string-array name="utility_button_names">
+        <item>Keyboard Keys</item>
+        <item>Clipboard</item>
+        <item>AI Copilot</item>
+        <item>GIF Search</item>
+        <item>Emoji Panel</item>
+        <item>Settings</item>
+        <item>None (Hide)</item>
+    </string-array>
+    <string-array name="utility_button_values">
+        <item>keys</item>
+        <item>clipboard</item>
+        <item>ai</item>
+        <item>gif</item>
+        <item>emoji</item>
+        <item>settings</item>
+        <item>none</item>
+    </string-array>
+
+    <string-array name="gif_provider_names">
+        <item>Tenor</item>
+        <item>Klipy</item>
+        <item>GIPHY</item>
+    </string-array>
+    <string-array name="gif_provider_values">
+        <item>tenor</item>
+        <item>klipy</item>
+        <item>giphy</item>
+    </string-array>
+
+    <string-array name="translate_mode_names">
+        <item>Gemini AI (سياقي ذكي)</item>
+        <item>Google Translate (سريع)</item>
+        <item>Offline (ML Kit بدون إنترنت)</item>
+    </string-array>
+    <string-array name="translate_mode_values">
+        <item>ai</item>
+        <item>scraping</item>
+        <item>mlkit</item>
+    </string-array>
+
+    <string-array name="translate_ai_provider_names">
+        <item>Gemini (Google Cloud)</item>
+        <item>Active AI Copilot configuration</item>
+        <item>Ollama (Local)</item>
+        <item>Custom API (OpenAI / DeepSeek)</item>
+    </string-array>
+    <string-array name="translate_ai_provider_values">
+        <item>gemini</item>
+        <item>active</item>
+        <item>ollama</item>
+        <item>custom</item>
+    </string-array>
+
+    <string-array name="key_shape_entries">
+        <item>Default</item>
+        <item>Circle</item>
+        <item>Squircle</item>
+        <item>Hexagon</item>
+        <item>Square</item>
+        <item>Rounded Rectangle</item>
+    </string-array>
+    <string-array name="key_shape_values">
+        <item>default</item>
+        <item>circle</item>
+        <item>squircle</item>
+        <item>hexagon</item>
+        <item>square</item>
+        <item>rounded</item>
+    </string-array>
+
+    <string-array name="key_size_mode_entries">
+        <item>Uniform Scale</item>
+        <item>Custom Width &amp; Height</item>
+    </string-array>
+    <string-array name="key_size_mode_values">
+        <item>uniform</item>
+        <item>custom</item>
+    </string-array>
+
+    <string-array name="kbd_bg_style_entries">
+        <item>Stretch to Fill</item>
+        <item>Cut to Fill (Crop)</item>
+    </string-array>
+    <string-array name="kbd_bg_style_values">
+        <item>stretch</item>
+        <item>crop</item>
+    </string-array>
+</resources>
